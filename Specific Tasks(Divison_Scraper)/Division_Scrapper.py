@@ -15,9 +15,7 @@ def Du_Crawler():
     csv_file = open(file_name, 'w')
     csv_writer = csv.writer(csv_file)
     csv_writer.writerow(
-        ['Exam Roll No.', 'Name', 'Course Name', 'College Name', 'Enrollment No.', 'Sem I', 'Sem II','Year I', 'Sem III'
-            , 'Sem IV', 'Year II', 'Sem V', 'Sem VI', 'Year III', 'Total_Credit_Year_I', 'Total_Credit_Point_Year_I',
-         'Total_Credit_Year_II', 'Total_Credit_Point_Year_II', 'Total_Credit_Year_III', 'Total_Credit_Point_Year_III'])
+        ['Exam Roll No.', 'Name', 'Course Name', 'College Name','Enrollment_No', 'Grand CGPA', 'Division'])
 
     flag = 0
     i = int(start_roll_no)
@@ -56,37 +54,34 @@ def Du_Crawler():
                 Combine_GradeCard = BeautifulSoup(r.text, 'lxml')
                 Info_Table = Combine_GradeCard.find('form')
                 action = Info_Table['action'].split('?')[0]
+
                 if action == 'Combine_GradeCardReport_CBCS.aspx':
-                    givenSemester = Info_Table.find('span', id='lblsem').text
+
                     Exam_Roll_No = Info_Table.find('span', id='lblrollno').text
                     Name = Info_Table.find('span', id='lblname').text
                     Course_Name = Info_Table.find('span', id='lblcourse').text
                     College_Name = Info_Table.find('span', id='lblcollege').text
                     Enrollment_No = Info_Table.find('span', id='lbleno').text
+
                     try:
-                        Result_Table = Info_Table.find('table', id='gv_sgpa')
-                        td_list = Result_Table.find_all('td')
-                        cases = {
-                            'II': Get_table.SemesterII,
-                            'IV': Get_table.SemesterIV,
-                            'VI': Get_table.SemesterVI
-                        }
-                        fun = cases.get(givenSemester)
-                        return_values = fun(td_list)
+                        Grand_CGPA = Info_Table.find('span', id='lbl_gr_cgpa').text
+                        Division = Info_Table.find('span', id='lbldiv').text
+                        return_values = Get_table.Division_for_third_year(Grand_CGPA, Division)
+
                     except Exception as e:
                         print('ER')
-                        return_values = ['ER', 'ER', 'ER']
+                        return_values = ['ER','ER']
 
                     csv_writer.writerow(
                         [int(Exam_Roll_No), Name, Course_Name, College_Name, Enrollment_No, *return_values])
+
                     print('Data for roll no ' + str(i) + ' is fetched')
-                    flag = 0
                     i += 1
+                    flag = 0
                 else:
                     print('Data for roll no ' + str(i) + ' is not found')
-                    flag += 1
                     i += 1
-
+                    flag += 1
             except Exception as e:
                 print(str(e))
                 pass

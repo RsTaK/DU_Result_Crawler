@@ -150,3 +150,20 @@ def SemesterVI(td_list):
     data_to_return.append(Total_Credit_Point_Year_III)
 
     return data_to_return
+
+
+def Division_for_third_year(Grand_CGPA, Division):
+    data_to_return = []
+
+    data = Grand_CGPA.split(':')[1]
+    filtered_cgpa = data.replace(',', '').replace(',', '').strip()
+    data_to_return.append(filtered_cgpa)
+
+    data = Division.split(':')[1]
+    filtered_division = data.replace(',', '').replace(',', '').strip()
+    data_to_return.append(filtered_division)
+
+    return data_to_return
+
+
+
