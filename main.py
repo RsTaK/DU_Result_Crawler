@@ -4,15 +4,15 @@ import csv
 import Get_table
 
 
-def Du_Crawler():
+def Du_Crawler(college_code, start_roll_no, last_roll_no, file_name):
 
-    print("You are required to enter the college code and range of roll no. whose data you want to get ")
+    """print("You are required to enter the college code and range of roll no. whose data you want to get ")
     college_code = input("Enter the College Code  ")
     start_roll_no = input("Enter the roll no. you want to start with  ")
     last_roll_no = input("Enter the roll no. you want to end on  ")
-    file_name = input("Enter the name for the output CSV file(with extension)  ")
+    file_name = input("Enter the name for the output CSV file(with extension)  ")"""
 
-    csv_file = open(file_name, 'w')
+    csv_file = open('static/Scrapped csv files/'+file_name, 'w')
     csv_writer = csv.writer(csv_file)
     csv_writer.writerow(
         ['Exam Roll No.', 'Name', 'Course Name', 'College Name', 'Enrollment No.', 'Sem I', 'Sem II','Year I', 'Sem III'
@@ -95,7 +95,7 @@ def Du_Crawler():
     csv_file.close()
     print("Done")
 
-
+"""
 if __name__ == "__main__":
     print("Welcome To This Software")
     print("We provide you just one feature right now")
@@ -107,3 +107,4 @@ if __name__ == "__main__":
 
     func = cases.get(options)
     func()
+"""
