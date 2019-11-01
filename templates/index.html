@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DU Result Crawler</title>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+
+    <div class = "main_box">
+        <form action="{{ url_for('predict') }}" method="post">
+            <h2>DU Result Crawler</h2>
+            <input type = "number" placeholder = "Enter College Code" name="code" required="required">
+            <input type = "number" placeholder = "Enter Starting Roll Number" name="start" required="required">
+            <input type = "number" placeholder = "Enter Ending Roll Number" name="end">
+            <input type = "text" placeholder = "Enter Output File name .csv" name="output" required="required">
+            <button type="submit" class = "btn">Submit</button>
+
+        </form>
+        </div>
+
+    </div>
+</body>
+</html>
